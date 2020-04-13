@@ -7,7 +7,14 @@ import RouteBase from '../components/route-base';
 import RouteSecret from '../components/route-secret';
 import RouteLogin from '../components/route-login';
 
+import IdentityModal from 'react-netlify-identity-widget';
+import 'react-netlify-identity-widget/styles.css';
+
 const Dashboard = ({ location }) => {
+  const [isVisible, setVisibility] = React.useState(false);
+
+  const showModal = () => setVisibility(true);
+
   React.useEffect(() => {
     if (location.pathname.match(/^\/dashboard\/?$/)) {
       navigate('dashboard/login', { replace: true });
@@ -20,9 +27,12 @@ const Dashboard = ({ location }) => {
       <Router>
         <RouteBase path="/dashboard/base" />
         <RouteSecret path="/dashboard/secret" />
-        <RouteLogin path="/dashboard/login" />
+        <RouteLogin path="/dashboard/login" showModal={showModal} />
       </Router>
-      {/* <p>TODO: create a dashboard</p> */}
+      <IdentityModal
+        showDialog={isVisible}
+        onCloseDialog={() => setVisibility(false)}
+      />
     </Layout>
   );
 };
