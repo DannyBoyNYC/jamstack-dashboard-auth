@@ -2,6 +2,7 @@ import React from 'react';
 import { navigate } from 'gatsby';
 import { useIdentityContext } from 'react-netlify-identity-widget';
 
+// checks for auth and then returns a component
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
   const identity = useIdentityContext();
   const isLoggedIn = identity && identity.isLoggedIn;
